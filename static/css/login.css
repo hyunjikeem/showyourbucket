@@ -1,0 +1,6 @@
+.wrap {
+    width: 1300px;/*수정*/
+    margin: 0 auto;/*수정*/
+    display: flex;
+    justify-content: center;
+}
