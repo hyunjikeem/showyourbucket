@@ -1,0 +1,69 @@
+* {
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+.header {
+  text-align: center;
+}
+.home-logo {
+  font-size: 50px;
+  color:red;
+}
+
+.intro {
+  font-size: 30px;
+  text-align: center;
+}
+
+.login-btn {
+  width: 80px;
+  display: block;
+  position: absolute;
+  right: 140px;
+  background-color: aqua;
+  cursor: pointer;
+}
+
+.posting-btn {
+  width: 80px;
+  display: block;
+  position: absolute;
+  right: 50px;
+  background-color: aqua;
+  cursor: pointer;
+}
+
+.posts-column{
+  margin: 50px 50px 50px 50px;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.bucket-desc {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.bucket-desc-content {
+  width: 700px;
+  height: 600px;
+  background-color: white;
+  border-radius: 4px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
