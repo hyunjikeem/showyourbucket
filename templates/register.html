@@ -66,7 +66,7 @@
                 $.ajax({
                     type: "POST",
                     url: "/api/signup",
-                    data: {give_nickname: nickname, give_id: user_id, give_pw: password, give_repw: re_password},
+                    data: {give_nickname: nickname, give_id: user_id, give_pw: password},
                     success: function (response) {
                         alert(response["msg"]);
                         window.location.href = '/';
