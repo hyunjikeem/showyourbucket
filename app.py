@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
 
 from pymongo import MongoClient
+import hashlib
 
 client = MongoClient('localhost', 27017)
 db = client.dbsparta
@@ -19,11 +20,12 @@ def register():
     return render_template('register.html')
 
 
-## api rout
+## API 부분
+# 닉네임 중복 확인
 @app.route('/api/check_nickname', methods=['POST'])
 def check_nickname():
     receive_nickname = request.form['give_nickname']
-    nicknames = list(db.showbuket.find({'nickname': receive_nickname}, {'_id': False}))
+    nicknames = list(db.user.find({'nickname': receive_nickname}, {'_id': False}))
 
     if not nicknames:
         overlap = 'pass'
@@ -32,10 +34,11 @@ def check_nickname():
     return jsonify({'overlap': overlap})
 
 
+# 아이디 중복확인
 @app.route('/api/check_id', methods=['POST'])
 def check_id():
     receive_id = request.form['give_id']
-    ids = list(db.showbuket.find({'id': receive_id}, {'_id': False}))
+    ids = list(db.user.find({'id': receive_id}, {'_id': False}))
 
     if not ids:
         overlap = 'pass'
@@ -44,21 +47,22 @@ def check_id():
     return jsonify({'overlap': overlap})
 
 
+# 회원가입 user 정보
 @app.route('/api/signup', methods=['POST'])
 def signup():
-    receive_nickname = request.form['give_nickname']
-    receive_id = request.form['give_id']
-    receive_pw = request.form['give_pw']
-    receive_repw = request.form['give_repw']
+    nickname_receive = request.form['give_nickname']
+    id_receive = request.form['give_id']
+    pw_receive = request.form['give_pw']
+    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+
     doc = {
-        'nickname': receive_nickname,
-        'id': receive_id,
-        'pw': receive_pw,
-        'repw': receive_repw
+        'nickname': nickname_receive,
+        'id': id_receive,
+        'pw': pw_hash,
     }
-    print(doc)
-    db.showbuket.insert_one(doc)
-    return jsonify({'msg': f'{receive_nickname}님 가입완료되었습니다:)'})
+
+    db.user.insert_one(doc)
+    return jsonify({'msg': f'{nickname_receive}님 가입완료되었습니다:)'})
 
 
 if __name__ == '__main__':
