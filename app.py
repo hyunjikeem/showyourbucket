@@ -33,7 +33,6 @@ db = client.bucketlist
 @app.route('/')
 def home():
     token_receive = request.cookies.get('mytoken')
-    state = ''
     if token_receive:
         state = 'login'
     else:
@@ -133,7 +132,7 @@ def saving_posts():
 @app.route('/api/check_nickname', methods=['POST'])
 def check_nickname():
     receive_nickname = request.form['give_nickname']
-    nicknames = list(db.bucketlist.find({'nickname': receive_nickname}, {'_id': False}))
+    nicknames = list(db.userinfo.find({'nickname': receive_nickname}, {'_id': False}))
 
     if not nicknames:
         overlap = 'pass'
@@ -145,7 +144,7 @@ def check_nickname():
 @app.route('/api/check_id', methods=['POST'])
 def check_id():
     receive_id = request.form['give_id']
-    ids = list(db.bucketlist.find({'id': receive_id}, {'_id': False}))
+    ids = list(db.userinfo.find({'id': receive_id}, {'_id': False}))
 
     if not ids:
         overlap = 'pass'
@@ -167,7 +166,7 @@ def signup():
         'pw': pw_hash,
     }
 
-    db.bucketlist.insert_one(doc)
+    db.userinfo.insert_one(doc)
     return jsonify({'msg': f'{nickname_receive}님 가입완료되었습니다:)'})
 
 
@@ -182,7 +181,7 @@ def api_login():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    result = db.bucketlist.find_one({'id': id_receive, 'pw': pw_hash})
+    result = db.userinfo.find_one({'id': id_receive, 'pw': pw_hash})
 
     if result is not None:
         payload = {
