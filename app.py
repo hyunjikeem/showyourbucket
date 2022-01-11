@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for
+
 app = Flask(__name__)
 
 # import requests
@@ -22,6 +23,7 @@ import hashlib
 # 기덕님 로그인 끝
 
 from pymongo import MongoClient
+
 # client = MongoClient('mongodb://test:test@localhost', 27017)
 # client = MongoClient('API address', 27017, username="", password="")
 client = MongoClient('localhost', 27017)
@@ -38,6 +40,7 @@ def listing_posts():
     buckets = list(db.bucketlist.find({}, {'_id': False}))
     return jsonify({'all_buckets': buckets})
 
+
 # @app.route('/bucketdetail')
 # def detail():
 #     return render_template("bucketdetail.html")
@@ -47,6 +50,8 @@ def login():
     # 기덕님
     msg = request.args.get("msg")
     return render_template("login.html", msg=msg)
+
+
 #
 
 
@@ -59,6 +64,7 @@ def login():
 @app.route('/register')
 def register():
     return render_template('register.html')
+
 
 @app.route('/posting')
 def posting():
@@ -74,6 +80,7 @@ def posting():
     # 기덕님 로그인
     return render_template("posting.html")
 
+
 # 현지님 버킷 작성하기
 @app.route('/api/posts', methods=['POST'])
 def saving_posts():
@@ -85,20 +92,21 @@ def saving_posts():
     desc = request.desc['desc']
 
     doc = {
-        'title':title,
-        'img':img,
-        'desc':desc,
+        'title': title,
+        'img': img,
+        'desc': desc,
     }
 
     db.bucketlist.insert_one(doc)
 
-    return jsonify({'msg':'저장이 완료되었습니다!'})
+    return jsonify({'msg': '저장이 완료되었습니다!'})
 
     # except jwt.ExpiredSignatureError:
     #     return redirect(url_for("login", msg="로그인 시간이 만료되었습니다!"))
     #
     # except jwt.exceptions.DecodeError:
     #     return redirect(url_for("login", msg="로그인 정보가 올바르지 않습니다!"))
+
 
 # 기덕님 코드
 # API
@@ -114,12 +122,12 @@ def saving_posts():
 #
 #     return jsonify({'result': 'success'})
 
-#재연님 코드
+# 재연님 코드
 ## api rout
 @app.route('/api/check_nickname', methods=['POST'])
 def check_nickname():
     receive_nickname = request.form['give_nickname']
-    nicknames = list(db.showbuket.find({'nickname': receive_nickname}, {'_id': False}))
+    nicknames = list(db.bucketlist.find({'nickname': receive_nickname}, {'_id': False}))
 
     if not nicknames:
         overlap = 'pass'
@@ -131,13 +139,14 @@ def check_nickname():
 @app.route('/api/check_id', methods=['POST'])
 def check_id():
     receive_id = request.form['give_id']
-    ids = list(db.showbuket.find({'id': receive_id}, {'_id': False}))
+    ids = list(db.bucketlist.find({'id': receive_id}, {'_id': False}))
 
     if not ids:
         overlap = 'pass'
     else:
         overlap = 'fail'
     return jsonify({'overlap': overlap})
+
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -154,9 +163,11 @@ def signup():
 
     db.bucketlist.insert_one(doc)
     return jsonify({'msg': f'{nickname_receive}님 가입완료되었습니다:)'})
-#재연님 코드
 
-#기덕님 코드
+
+# 재연님 코드
+
+# 기덕님 코드
 # 로그인
 @app.route('/api/login', methods=['POST'])
 def api_login():
@@ -177,8 +188,9 @@ def api_login():
         return jsonify({'result': 'success', 'token': token})
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
-#기덕님 코드
+
+
+# 기덕님 코드
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
