@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+    <title>Show Your Bucket</title>
+
+    <title>회원가입</title>
+    <style>
+        * {
+            font-family: 'Black Han Sans', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+
+        }
+
+        h2 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .wrap {
+            width: 540px;
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        function go_register() {
+            //replace(/ /gi,'') 공백제거
+            let nickname = $('#nickname').val().replace(/ /gi, '')
+            let user_id = $('#id').val().replace(/ /gi, '')
+            let password = $('#password').val().replace(/ /gi, '')
+            let re_password = $('#re_password').val().replace(/ /gi, '')
+
+
+            if (nickname === '') {
+                alert('닉네임을 입력해주세요:)');
+            } else if (user_id === '') {
+                alert('아이디를 입력해주세요:)');
+            } else if (password === '') {
+                alert('비밀번호를 입력해주세요:)');
+            } else if (!checkpw(password)) {
+                alert('비밀번호는 숫자와 영문을 포함하여8자 이상이어야합니다.');
+            } else if (re_password === '') {
+                alert('비밀번호를 다시 한번 입력해주세요:)');
+            } else if (password !== re_password) {
+                alert('비밀번호가 동일하지 않습니다.')
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/signup",
+                    data: {give_nickname: nickname, give_id: user_id, give_pw: password},
+                    success: function (response) {
+                        alert(response["msg"]);
+                        window.location.href = '/';
+                    }
+                })
+            }
+
+        }
+
+        function check_nickname() {
+            let nickname = $('#nickname').val()
+            if (!nickname) {
+                alert('닉네입을 입력해주세요')
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: `/api/check_nickname`,
+                    data: {'give_nickname': nickname},
+                    success: function (response) {
+                        if (response['overlap'] === 'pass') {
+                            alert('사용 가능한 닉네임입니다.')
+                        } else {
+                            alert('사용 중인 닉네임입니다.');
+                            $('#nickname').val('')
+                            $('#nickname').focus()
+                        }
+                    }
+                })
+            }
+        }
+
+        function check_id() {
+            let user_id = $('#id').val()
+            if (!user_id) {
+                alert('아이디 입력해주세요')
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: `/api/check_id`,
+                    data: {'give_id': user_id},
+                    success: function (response) {
+                        if (response['overlap'] === 'pass') {
+                            alert('사용 가능한 아이디입니다.')
+                        } else {
+                            alert('사용 중인 아이디입니다.');
+                            $('#id').val('')
+                            $('#id').focus()
+                        }
+                    }
+                })
+            }
+        }
+
+
+        // 비밀번호 영문 숫자 포함 8글자 이상 조건
+        function checkpw(password) {
+            let regpw = /^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+            return regpw.test(password)
+        }
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <h1>Show Your Buket</h1>
+    <h2>회원가입</h2>
+    <div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">닉네입</span>
+            <input id="nickname" type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-sm">
+            <button type="button" class="btn btn-outline-primary" onclick="check_nickname()">닉네임 중복 확인</button>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">아이디</span>
+            <input id="id" type="text" class="form-control aria-label=" Sizing example input"
+            aria-describedby="inputGroup-sizing-sm">
+            <button type="button" class="btn btn-outline-primary" onclick="check_id()">아이디 중복 확인</button>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
+            <input id="password" type="password" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">비밀번호 재입력</span>
+            <input id="re_password" type="password" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <button class="btn btn-primary" type="button" onclick="go_register()">가입하기</button>
+    </div>
+</div>
+</body>
+</html>

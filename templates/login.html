@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+        <title>Show Your Bucket</title>
+
+        <!--기덕님 로그인-->
+        <script>
+        function loginClick() {
+            let username_receive = $('#loginId').val()
+            let password_receive = $('#loginPw').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/api/login",
+                data: {id_give: username_receive, pw_give: password_receive},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        $.cookie('mytoken', response['token']);
+
+                        alert('로그인 완료!')
+                        window.location.href = '/'
+                    } else {
+                        alert(response['msg'])
+                    }
+                }
+            })
+        }
+
+        </script>
+        <style>
+            .title {
+                text-align: center;
+                font-size: 30px;
+            }
+
+            .loginBox {
+                width: 600px;
+                height: 900px;
+                margin: auto;
+                border: 3px solid black;
+                border-radius: 20px;
+            }
+
+            .idpw {
+                width: 300px;
+                margin: 100px auto 30px auto;
+            }
+
+            .loginSign {
+                text-align: center;
+            }
+
+            .loginBtn {
+                display: inline-block;
+                margin-left: 120px;
+            }
+
+            .signUp {
+                display: inline-block;
+            }
+        </style>
+
+</head>
+<body>
+    <p class="title">Show Your Bucket</p>
+    <div class="loginBox">
+        <div class="idpw">
+            <div class="input-group mb-3 id">
+                <span class="input-group-text">아이디</span>
+                <input type="text" class="form-control" placeholder="아이디를 입력해주세요." aria-label="Username"
+                       aria-describedby="basic-addon1" id="loginId">
+            </div>
+            <div class="input-group mb-3 pw">
+                <span class="input-group-text">비밀번호</span>
+                <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요." aria-label="Username"
+                       aria-describedby="basic-addon1" id="loginPw">
+            </div>
+        </div>
+        <div class="loginSign">
+            <button type="button" class="btn btn-outline-secondary signUp" onclick="location.href='/register'">회원가입</button>
+            <button type="button" class="btn btn-outline-secondary loginBtn" onclick="loginClick()">로그인 하기</button>
+        </div>
+    </div>
+</body>
+</html>
