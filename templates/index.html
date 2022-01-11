@@ -17,6 +17,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
 
@@ -27,19 +29,37 @@
     <script>
         $(document).ready(function () {
             showbuckets();
+            btn_state()
         });
+
+        function btn_state() {
+            let btns = $(".main-btns");
+            let html_temp = ``
+            if ($.cookie('mytoken')) {
+                html_temp = `
+                    <button type="button" class="login-btn" onclick="logout()" >로그아웃</button>
+                    `
+            } else {
+                html_temp = `
+                    <button type="button" class="login-btn" onclick="window.location.href='/login'">로그인</button>
+                    `
+            }
+            btns.prepend(html_temp)
+        }
+
+
         function showbuckets() {
-                $.ajax({
-                    type: "GET",
-                    url: "/main",
-                    data: {},
-                    success: function (response) {
-                        let buckets = response['all_buckets']
-                        for (let i = 0; i < buckets.length; i++) {
-                            let title = buckets[i]['title']
-                            let img = buckets[i]['img']
-                            let desc = buckets[i]['desc']
-                            let temp_html=`<div class="card">
+            $.ajax({
+                type: "GET",
+                url: "/main",
+                data: {},
+                success: function (response) {
+                    let buckets = response['all_buckets']
+                    for (let i = 0; i < buckets.length; i++) {
+                        let title = buckets[i]['title']
+                        let img = buckets[i]['img']
+                        let desc = buckets[i]['desc']
+                        let temp_html = `<div class="card">
                                                 <img class="card-img-top"
                                                      src="${img}"
                                                      alt="Card image cap">
@@ -48,46 +68,50 @@
                                                     <p class="card-text">${desc}</p>
                                                 </div>
                                             </div>`
-                            $('#posts-box').append(temp_html)
-                        }
+                        $('#posts-box').append(temp_html)
                     }
-                })
-            }
+                }
+            })
+        }
+
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('로그아웃!')
+            window.location.href = '/'
+        }
     </script>
 </head>
 <body>
-    <div class="header">
-        <a class="home-logo" href="/">Show Your Bucket
-        </a>
-    </div>
-    <div class="intro">
-        올해는 진짜 해봐야죠!
-    </div>
-    <div class="'main-btns">
-        <button type="button" class="login-btn" onclick="window.location.href='/login'">로그인</button>
-        <button type="button" class="posting-btn" onclick="window.location.href='/posting'">작성하기</button>
-    </div>
-    <div id="posts-box" class="posts-column">
-    </div>
+<div class="header">
+    <a class="home-logo" href="/">Show Your Bucket
+    </a>
+</div>
+<div class="intro">
+    올해는 진짜 해봐야죠!
+</div>
+<div class="main-btns">
+    <button type="button" class="posting-btn" onclick="window.location.href='/posting'">작성하기</button>
+</div>
+<div id="posts-box" class="posts-column">
+</div>
 
-    <a href="#" onclick=$("#bucket-box").show();>title</a>
+<a href="#" onclick=$("#bucket-box").show();>title</a>
 
 <!--버켓 보기 디테일-->
-    <div id="bucket-box" class="bucket-desc">
-        <div class="bucket-desc-content">
-            <div class="close" onclick=$("#bucket-box").hide().window.location.reload()>
-                <i class="fa fa-times" aria-hidden="true"></i>
-            </div>
-            <img class="card-img-top"
-                 src="${img}"
-                 alt="Card image cap">
-            <div class="card-body">
-                <p>${title}</p>
-                <p class="card-text">${desc}</p>
-            </div>
+<div id="bucket-box" class="bucket-desc">
+    <div class="bucket-desc-content">
+        <div class="close" onclick=$("#bucket-box").hide().window.location.reload()>
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        <img class="card-img-top"
+             src="${img}"
+             alt="Card image cap">
+        <div class="card-body">
+            <p>${title}</p>
+            <p class="card-text">${desc}</p>
         </div>
     </div>
-
+</div>
 
 
 </body>
