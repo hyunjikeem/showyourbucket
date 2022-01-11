@@ -32,7 +32,13 @@ db = client.bucketlist
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    token_receive = request.cookies.get('mytoken')
+    state = ''
+    if token_receive:
+        state = 'login'
+    else:
+        state = 'logout'
+    return render_template('index.html', state=state)
 
 
 @app.route('/main', methods=['GET'])

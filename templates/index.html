@@ -29,24 +29,7 @@
     <script>
         $(document).ready(function () {
             showbuckets();
-            btn_state()
         });
-
-        function btn_state() {
-            let btns = $(".main-btns");
-            let html_temp = ``
-            if ($.cookie('mytoken')) {
-                html_temp = `
-                    <button type="button" class="login-btn" onclick="logout()" >로그아웃</button>
-                    `
-            } else {
-                html_temp = `
-                    <button type="button" class="login-btn" onclick="window.location.href='/login'">로그인</button>
-                    `
-            }
-            btns.prepend(html_temp)
-        }
-
 
         function showbuckets() {
             $.ajax({
@@ -82,6 +65,8 @@
     </script>
 </head>
 <body>
+<h1>{{ token }}</h1>
+
 <div class="header">
     <a class="home-logo" href="/">Show Your Bucket
     </a>
@@ -90,6 +75,11 @@
     올해는 진짜 해봐야죠!
 </div>
 <div class="main-btns">
+    {% if state == 'login'%}
+        <button type="button" class="login-btn" onclick="logout()">로그아웃</button>
+    {% else %}
+        <button type="button" class="login-btn" onclick="window.location.href='/login'">로그인</button>
+    {% endif %}
     <button type="button" class="posting-btn" onclick="window.location.href='/posting'">작성하기</button>
 </div>
 <div id="posts-box" class="posts-column">
