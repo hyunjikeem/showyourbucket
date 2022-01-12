@@ -32,9 +32,6 @@ def saving_posts():
     # token_receive = request.cookies.get('mytoken') # Client 로 부터 토큰값 가져오기
     # payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256']) #jwt 토큰 받은것을 시크릿키를 가지고 복호화해서 payload에 저장하기
 
-    # img = request.form['img']
-    # title = request.form['title']
-    # desc = request.form['desc']
 
     title_receive = request.form['title_give']
     desc_receive = request.form['desc_give']
@@ -56,12 +53,6 @@ def saving_posts():
         'desc':desc_receive,
         'file': f'{filename}.{extension}'
     }
-
-    # doc = {
-    #     'title': title,
-    #     'img': img,
-    #     'desc': desc,
-    # }
 
     db.bucketlist.insert_one(doc)
 
