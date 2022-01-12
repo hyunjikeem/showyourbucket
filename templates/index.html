@@ -57,8 +57,8 @@
                 })
             }
 
-
         function listing_detail(id) {
+            $('#bucket-modal-contents').empty()
             $("#bucket-modal").show();
                 $.ajax({
                 type: "GET",
@@ -116,7 +116,7 @@
         {% endif %}
         <button type="button" class="posting-btn" onclick="mp_posting()">작성하기</button>
     </div>
-    <div id="buckets-box" class="card-columns buckets">
+    <div id="buckets-box" class="card-columns">
     </div>
 
     <a href="#" onclick=$("#bucket-modal").show()>popuptest</a>
