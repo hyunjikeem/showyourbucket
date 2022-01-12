@@ -1,6 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,176 +7,115 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-    <title>Show Your Bucket</title>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gaegu&family=Stylish&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
 
-    <style>
-        * {
-            font-family: 'Black Han Sans', sans-serif;
-        }
+    <!-- 구글폰트 -->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">-->
 
-        .title {
-            font-size: 25px;
-            text-align: center;
-        }
-
-        .wrapper {
-            width: 1000px;
-            margin: 0 auto;
-        }
-
-        #chooseFile {
-            visibility: hidden;
-        }
-
-        .image-show {
-            width: 450px;
-            height: 450px;
-            background-color: white;
-            border-radius: 0px;
-            overflow: hidden;
-            margin: 25px 10px 10px 0px;
-        }
-
-        .image-form {
-            width: 450px;
-            height: 350px;
-            float: left;
-        }
-
-        .posting-btn {
-            margin-top: 15px;
-            float: right;
-            height: 40px;
-            width: 100px;
-            font-size: 20px;
-            border-radius: 8px;
-            background-color: black;
-            color: white;
-        }
-
-        .image-button {
-            font-size:25px;
-            text-align: center;
-        }
-
-        .posting-title {
-            width: 500px;
-            float: right;
-        }
-
-        .posting-description {
-            width: 500px;
-            margin: 20px -2px;
-            float: right;
-        }
-
-        textarea {
-            width: 300px;
-            height: 200px;
-            resize: none;
-        }
-
-        .form-label {
-            font-size: 17px;
-        }
-
-    </style>
+    <title>Show Your Bucket!</title>
 
     <script>
-        // 이미지, 제목, 내용이 다 들어갔는지 확인하는 함수
-        function checkpost() {
-            if ($('#img').attr("src") == "") {
-                return false;
-            } else if ($('#title').val() == "") {
-                return false;
-            } else if ($('#desc').val() == "") {
-                return false;
-            } else {
-                return true;
-            }
-        }
+        $(document).ready(function () {
+            listing();
+        });
 
-        //이미지 파일 처리하는 함수
-        function loadFile(input) {
-            let file = input.files[0]; // 선택된 파일 가져오기
 
-            let newImage = document.createElement("img"); // 새로운 이미지 추가
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/listing",
+                data: {},
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        let buckets = response['all_buckets']
+                        for (let i = 0; i < buckets.length; i++) {
+                            let title = buckets[i]['title']
+                            let desc = buckets[i]['desc']
+                            let file = buckets[i]['file']
 
-            newImage.src = URL.createObjectURL(file); //이미지 source 가져오기
-
-            newImage.style.width = "100%";
-            newImage.style.height = "100%";
-            newImage.style.objectFit = "contain";
-
-            let container = document.getElementById('image-show'); //이미지를 image-show div 에 추가
-            container.appendChild(newImage);
-        }
-
-        // 글 저장하기 함수
-        function posting() {
-            if (checkpost()) {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/posts",
-                    data: {
-                        title: $('#title').val(),
-                        desc: $('#desc').val(),
-                        img: $('#img').attr("scr")
-                    },
-                    success: function (response) { // 성공하면
-                        alert(response["msg"]);
-                        window.location.replace('/'); //메인페이지로 이동
+                            let temp_html = `<div class="card">
+                                                <img src="../static/${file}" class="card-img-top">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${title}</h5>
+                                                    <p class="card-text">${desc}</p>
+                                                </div>
+                                            </div>`
+                            $('#posts-box').append(temp_html)
+                        }
                     }
-                })
-            } else {
-                alert("빠진 내용이 없나 확인해 주세요!"); //예외사항 notify
-            }
+                }
+            });
         }
 
+        function logout() {
+                $.removeCookie('mytoken');
+                alert('로그아웃 되었습니다!')
+                window.location.href = '/'
+            }
+
+        function mp_posting() {
+            if ($.cookie('mytoken')) {
+                window.location.href = '/posting'
+            } else {
+                alert('로그인 먼저 부탁드려요~')
+                window.location.href = '/login'
+            }
+        }
 
     </script>
 </head>
-
 <body>
-<div class="title"> Show Your Bucket</div>
-
-<div class="wrapper">
-    <form class="image-form" method="post" enctype="multipart/form-data">
-        <div class="image-show" id="image-show">
-        </div>
-        <div class="image-button">
-            <label for="chooseFile">
-                👉 사진 추가 👈
-            </label>
-        </div>
-        <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
-    </form>
-    <div class="posting-title">
-        <label class="form-label"></label>
-        <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
+    <div class="header">
+        <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
     </div>
-    <div class="posting-description">
-        <label class="form-label">내용을 입력하세요</label>
-        <textarea class="form-control" id="desc" rows="8"></textarea>
+    <div class="intro">
+        시간이 없는 거지, 하고 싶은 게 없는 건 아니잖아요?
+    </div>
+    <div class="main-btns">
+        {% if state == 'login'%}
+        <button type="button" class="login-btn" onclick="logout()">로그아웃</button>
+        {% else %}
+        <button type="button" class="login-btn" onclick="window.location.href='/login'">로그인</button>
+        {% endif %}
+        <button type="button" class="posting-btn" onclick="mp_posting()">작성하기</button>
+    </div>
+    <div id="posts-box" class="posts-column">
     </div>
 
-    <button class="posting-btn" onclick="posting()" type="button">작성하기</button>
+    <a href="#" onclick=$("#bucket-box").show();>popuptest</a>
 
-</div>
+<!--버켓 보기 디테일-->
+    <div id="bucket-box" class="bucket-desc">
+        <div class="bucket-desc-content">
+            <div class="close" onclick=$("#bucket-box").hide().window.location.reload()>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <img class="card-img-top"
+                 src="${img}"
+                 alt="Card image cap">
+            <div class="card-body">
+                <p>${title}</p>
+                <p class="card-text">${desc}</p>
+            </div>
+        </div>
+    </div>
+
+
 
 </body>
-
 </html>
+
+
+
