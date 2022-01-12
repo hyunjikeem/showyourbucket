@@ -5,6 +5,7 @@ app = Flask(__name__)
 # from bs4 import BeautifulSoup
 
 import jwt
+from bson import ObjectId
 
 # 기덕님 로그인
 # jwt 토큰을 만들 때 필요.
@@ -41,12 +42,16 @@ def home():
 
 @app.route('/buckets', methods=['GET'])
 def show_buckets():
-    buckets = list(db.bucketlist.find({}, {'_id': False}))
+    buckets = list(db.bucketlist.find({}))
+    for bucket in buckets:
+        bucket["_id"] = str(bucket["_id"])
     return jsonify({'all_buckets': buckets})
 
-# @app.route('/bucketdetail')
-# def detail():
-#     return render_template("bucketdetail.html")
+@app.route('/api/bucketdetail', methods=['GET'])
+def detail():
+    id_receive = request.args.get('id_give')
+    bucket_detail = db.bucketlist.find_one({'_id': ObjectId(id_receive)}, {'_id': False})
+    return jsonify({'bucket_detail': bucket_detail})
 
 @app.route('/login')
 def login():
