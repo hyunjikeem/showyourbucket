@@ -49,25 +49,23 @@
   cursor: pointer;
 }
 
-.posts-column{
-  margin: 50px 50px 50px 50px;
-  border-radius: 10px;
-  border: 2px solid black;
+.buckets{
+  margin: 50px;
 }
 
-.bucket-desc {
+.bucket-modal {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
+  position: fixed;
   top: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   display: none;
+  z-index: 1;
 }
 
-.bucket-desc-content {
+.bucket-modal-content {
   width: 700px;
   height: 600px;
   background-color: white;
