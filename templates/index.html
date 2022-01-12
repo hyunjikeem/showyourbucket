@@ -31,33 +31,30 @@
             listing();
         });
 
-
         function listing() {
             $.ajax({
                 type: "GET",
-                url: "/listing",
+                url: "/buckets",
                 data: {},
                 success: function (response) {
-                    if (response["result"] == "success") {
                         let buckets = response['all_buckets']
                         for (let i = 0; i < buckets.length; i++) {
                             let title = buckets[i]['title']
                             let desc = buckets[i]['desc']
                             let file = buckets[i]['file']
 
-                            let temp_html = `<div class="card">
+                            let temp_html = `<div class="card" onclick=$("#bucket-modal").show() style="cursor: pointer">
                                                 <img src="../static/${file}" class="card-img-top">
                                                 <div class="card-body">
                                                     <h5 class="card-title">${title}</h5>
                                                     <p class="card-text">${desc}</p>
                                                 </div>
                                             </div>`
-                            $('#posts-box').append(temp_html)
+                            $('#buckets-box').append(temp_html)
                         }
                     }
-                }
-            });
-        }
+                })
+            }
 
         function logout() {
                 $.removeCookie('mytoken');
@@ -91,19 +88,19 @@
         {% endif %}
         <button type="button" class="posting-btn" onclick="mp_posting()">작성하기</button>
     </div>
-    <div id="posts-box" class="posts-column">
+    <div id="buckets-box" class="card-columns buckets">
     </div>
 
-    <a href="#" onclick=$("#bucket-box").show();>popuptest</a>
+    <a href="#" onclick=$("#bucket-modal").show()>popuptest</a>
 
 <!--버켓 보기 디테일-->
-    <div id="bucket-box" class="bucket-desc">
-        <div class="bucket-desc-content">
-            <div class="close" onclick=$("#bucket-box").hide().window.location.reload()>
+    <div id="bucket-modal" class="bucket-modal">
+        <div class="bucket-modal-content">
+            <div class="close" onclick=$("#bucket-modal").hide()>
                 <i class="fa fa-times" aria-hidden="true"></i>
             </div>
             <img class="card-img-top"
-                 src="${img}"
+                 src="../static/${file}"
                  alt="Card image cap">
             <div class="card-body">
                 <p>${title}</p>
