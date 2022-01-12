@@ -39,8 +39,8 @@ def home():
     return render_template('index.html', state=state)
 
 
-@app.route('/listing', methods=['GET'])
-def listing():
+@app.route('/buckets', methods=['GET'])
+def show_buckets():
     buckets = list(db.bucketlist.find({}, {'_id': False}))
     return jsonify({'all_buckets': buckets})
 
