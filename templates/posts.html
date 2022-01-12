@@ -21,7 +21,7 @@
             crossorigin="anonymous"></script>
 
     <title>Show Your Bucket</title>
-<!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gaegu&family=Stylish&display=swap" rel="stylesheet">-->
+    <!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gaegu&family=Stylish&display=swap" rel="stylesheet">-->
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
@@ -42,18 +42,16 @@
         }
 
         .image-show {
-            width: 350px;
-            height: 350px;
-            background-color: black;
-            border-radius: 0px;
-            overflow: hidden;
-            margin: 25px 10px 10px 0px;
-            background-position: center;
-            background-repeat: no-repeat
+            width: 450px;
+            height: 450px;
+            background-image: url("../static/preview.png");
+            background-repeat: no-repeat;
+            margin: 35px 10px 10px 0px;
         }
 
         .posting-btn {
-            margin-top: 15px;
+            margin-top: -108px;
+            margin-right: 170px;
             float: right;
             height: 40px;
             width: 100px;
@@ -64,20 +62,21 @@
         }
 
         .image-button {
-            font-size:25px;
+            font-size: 25px;
             text-align: left;
             margin: 0px 0px 0px 140px;
         }
 
         .posting-title {
-            width: 300px;
-            float: cneter;
+            width: 500px;
+            float: right;
+            margin-top: -518px;
         }
 
         .posting-description {
-            width: 500px;
-            margin: 20px -2px;
-            float: center;
+            width: 498px;
+            margin-top: -408px;
+            float: right;
         }
 
         textarea {
@@ -105,10 +104,11 @@
 
             newImage.style.width = "100%";
             newImage.style.height = "100%";
-            newImage.style.objectFit = "contain";
+            newImage.style.objectFit = "scale-down";
 
             let container = document.getElementById('image-show'); //이미지를 image-show div 에 추가
             container.appendChild(newImage);
+
         }
 
         function posting() {
@@ -116,12 +116,12 @@
             let desc = $("#desc").val()
             let file = $('#file')[0].files[0]
 
-            if(file == undefined) {
+            if (file == undefined) {
                 alert("이미지를 첨부해주세요!")
                 return;
             }
 
-            let form_data = new FormData()
+            let form_data = new FormData();
 
             form_data.append("file_give", file)
             form_data.append("title_give", title)
@@ -136,43 +136,42 @@
                 processData: false,
                 success: function (response) {
                     alert(response["msg"])
-                    window.location.href='/';
+                    window.location.href = '/';
                 }
             });
         }
-
 
 
     </script>
 </head>
 
 <body>
-    <div class="header">
-        <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
+<div class="header">
+    <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
+</div>
+
+<div class="wrapper">
+    <div class="image-show" id="image-show">
+    </div>
+    <div class="image-button">
+        <label for="file">
+            👉 사진 추가 👈
+        </label>
+    </div>
+    <input type="file" id="file" name="file" class="custom-file-input" onchange="loadFile(this)"/>
+
+    <div class="posting-title">
+        <label class="form-label"></label>
+        <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
+    </div>
+    <div class="posting-description">
+        <label class="form-label">내용을 입력하세요</label>
+        <textarea class="form-control" id="desc" rows="8"></textarea>
     </div>
 
-    <div class="wrapper">
-        <div class="image-show" id="image-show">
-        </div>
-        <div class="image-button">
-            <label for="file">
-                👉 사진 추가 👈
-            </label>
-        </div>
-        <input type="file" id="file" name="file" class="custom-file-input" onchange="loadFile(this)"/>
+    <button class="posting-btn" onclick="posting()" type="button">작성하기</button>
 
-        <div class="posting-title">
-            <label class="form-label"></label>
-            <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
-        </div>
-        <div class="posting-description">
-            <label class="form-label">내용을 입력하세요</label>
-            <textarea class="form-control" id="desc" rows="8"></textarea>
-        </div>
-
-        <button class="posting-btn" onclick="posting()" type="button">작성하기</button>
-
-    </div>
+</div>
 
 </body>
 
