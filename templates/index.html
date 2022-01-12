@@ -42,8 +42,9 @@
                             let title = buckets[i]['title']
                             let desc = buckets[i]['desc']
                             let file = buckets[i]['file']
+                            let id = buckets[i]['_id']
 
-                            let temp_html = `<div class="card" onclick=$("#bucket-modal").show() style="cursor: pointer">
+                            let temp_html = `<div class="card" onclick="listing_detail('${id}')" style="cursor: pointer">
                                                 <img src="../static/${file}" class="card-img-top">
                                                 <div class="card-body">
                                                     <h5 class="card-title">${title}</h5>
@@ -54,6 +55,33 @@
                         }
                     }
                 })
+            }
+
+
+        function listing_detail(id) {
+            $("#bucket-modal").show();
+                $.ajax({
+                type: "GET",
+                url: `/api/bucketdetail?id_give=${id}`,
+                data: {},
+                success: function (response) {
+                        let bucket_detail = response['bucket_detail']
+                            let title = bucket_detail['title']
+                            let desc = bucket_detail['desc']
+                            let file = bucket_detail['file']
+                            let temp_html = `<div class="card">
+                                                <div class="close" onclick=$("#bucket-modal").hide()>
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <img src="../static/${file}" class="card-img-top">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${title}</h5>
+                                                    <p class="card-text">${desc}</p>
+                                                </div>
+                                            </div>`
+                            $('#bucket-modal-contents').append(temp_html)
+                        }
+                    })
             }
 
         function logout() {
@@ -95,16 +123,14 @@
 
 <!--버켓 보기 디테일-->
     <div id="bucket-modal" class="bucket-modal">
-        <div class="bucket-modal-content">
-            <div class="close" onclick=$("#bucket-modal").hide()>
-                <i class="fa fa-times" aria-hidden="true"></i>
-            </div>
-            <img class="card-img-top"
-                 src="../static/${file}"
-                 alt="Card image cap">
-            <div class="card-body">
-                <p>${title}</p>
-                <p class="card-text">${desc}</p>
+            <div id="bucket-modal-contents" class="bucket-modal-contents">
+<!--                <img class="card-img-top"-->
+<!--                     src="../static/${file}"-->
+<!--                     alt="Card image cap">-->
+<!--                <div class="card-body">-->
+<!--                    <p>${title}</p>-->
+<!--                    <p class="card-text">${desc}</p>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
