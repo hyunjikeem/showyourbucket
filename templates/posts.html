@@ -107,7 +107,13 @@
             newImage.style.objectFit = "scale-down";
 
             let container = document.getElementById('image-show'); //이미지를 image-show div 에 추가
-            container.appendChild(newImage);
+
+            if (container.children.length == 0) {
+                container.appendChild(newImage);
+            } else {
+                container.removeChild(container.children[0])
+                container.appendChild(newImage);
+            }
 
         }
 
@@ -118,6 +124,12 @@
 
             if (file == undefined) {
                 alert("이미지를 첨부해주세요!")
+                return;
+            } else if (title == "") {
+                alert ("제목을 작성해주세요!")
+                return;
+            } else if (desc == "") {
+                alert ("내용을 작성해주세요!")
                 return;
             }
 
@@ -141,7 +153,6 @@
             });
         }
 
-
     </script>
 </head>
 
@@ -158,7 +169,7 @@
             👉 사진 추가 👈
         </label>
     </div>
-    <input type="file" id="file" name="file" class="custom-file-input" onchange="loadFile(this)"/>
+    <input type="file" id="file" name="file" class="custom-file-input" accept="image/*" onchange="loadFile(this)"/>
 
     <div class="posting-title">
         <label class="form-label"></label>
