@@ -17,91 +17,101 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
 
     <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">-->
+
     <title>Show Your Bucket!</title>
 
     <script>
         $(document).ready(function () {
-            showbuckets();
+            listing();
         });
 
-        function showbuckets() {
+
+        function listing() {
             $.ajax({
                 type: "GET",
-                url: "/main",
+                url: "/listing",
                 data: {},
                 success: function (response) {
-                    let buckets = response['all_buckets']
-                    for (let i = 0; i < buckets.length; i++) {
-                        let title = buckets[i]['title']
-                        let img = buckets[i]['img']
-                        let desc = buckets[i]['desc']
-                        let temp_html = `<div class="card">
-                                                <img class="card-img-top"
-                                                     src="${img}"
-                                                     alt="Card image cap">
+                    if (response["result"] == "success") {
+                        let buckets = response['all_buckets']
+                        for (let i = 0; i < buckets.length; i++) {
+                            let title = buckets[i]['title']
+                            let desc = buckets[i]['desc']
+                            let file = buckets[i]['file']
+
+                            let temp_html = `<div class="card">
+                                                <img src="../static/${file}" class="card-img-top">
                                                 <div class="card-body">
-                                                    <a href="#" onclick="detailPopup()" class="card-title">${title}</a>
+                                                    <h5 class="card-title">${title}</h5>
                                                     <p class="card-text">${desc}</p>
                                                 </div>
                                             </div>`
-                        $('#posts-box').append(temp_html)
+                            $('#posts-box').append(temp_html)
+                        }
                     }
                 }
-            })
+            });
         }
 
         function logout() {
-            $.removeCookie('mytoken');
-            alert('로그아웃!')
-            window.location.href = '/'
+                $.removeCookie('mytoken');
+                alert('로그아웃 되었습니다!')
+                window.location.href = '/'
+            }
+
+        function mp_posting() {
+            if ($.cookie('mytoken')) {
+                window.location.href = '/posting'
+            } else {
+                alert('로그인 먼저 부탁드려요~')
+                window.location.href = '/login'
+            }
         }
+
     </script>
 </head>
 <body>
-<h1>{{ token }}</h1>
-
-<div class="header">
-    <a class="home-logo" href="/">Show Your Bucket
-    </a>
-</div>
-<div class="intro">
-    올해는 진짜 해봐야죠!
-</div>
-<div class="main-btns">
-    {% if state == 'login'%}
+    <div class="header">
+        <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
+    </div>
+    <div class="intro">
+        시간이 없는 거지, 하고 싶은 게 없는 건 아니잖아요?
+    </div>
+    <div class="main-btns">
+        {% if state == 'login'%}
         <button type="button" class="login-btn" onclick="logout()">로그아웃</button>
-    {% else %}
+        {% else %}
         <button type="button" class="login-btn" onclick="window.location.href='/login'">로그인</button>
-    {% endif %}
-    <button type="button" class="posting-btn" onclick="window.location.href='/posting'">작성하기</button>
-</div>
-<div id="posts-box" class="posts-column">
-</div>
+        {% endif %}
+        <button type="button" class="posting-btn" onclick="mp_posting()">작성하기</button>
+    </div>
+    <div id="posts-box" class="posts-column">
+    </div>
 
-<a href="#" onclick=$("#bucket-box").show();>title</a>
+    <a href="#" onclick=$("#bucket-box").show();>popuptest</a>
 
 <!--버켓 보기 디테일-->
-<div id="bucket-box" class="bucket-desc">
-    <div class="bucket-desc-content">
-        <div class="close" onclick=$("#bucket-box").hide().window.location.reload()>
-            <i class="fa fa-times" aria-hidden="true"></i>
-        </div>
-        <img class="card-img-top"
-             src="${img}"
-             alt="Card image cap">
-        <div class="card-body">
-            <p>${title}</p>
-            <p class="card-text">${desc}</p>
+    <div id="bucket-box" class="bucket-desc">
+        <div class="bucket-desc-content">
+            <div class="close" onclick=$("#bucket-box").hide().window.location.reload()>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <img class="card-img-top"
+                 src="${img}"
+                 alt="Card image cap">
+            <div class="card-body">
+                <p>${title}</p>
+                <p class="card-text">${desc}</p>
+            </div>
         </div>
     </div>
-</div>
+
 
 
 </body>

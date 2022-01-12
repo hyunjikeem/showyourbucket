@@ -17,12 +17,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
 
     <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">-->
 
         <title>Show Your Bucket</title>
 
@@ -40,7 +41,7 @@
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token']);
 
-                        alert('로그인 완료!')
+                        alert('로그인이 완료되었습니다!')
                         window.location.href = '/'
                     } else {
                         alert(response['msg'])
@@ -51,22 +52,22 @@
 
         </script>
         <style>
-            .title {
-                text-align: center;
-                font-size: 30px;
-            }
+            /*.title {*/
+            /*    text-align: center;*/
+            /*    font-size: 30px;*/
+            /*}*/
 
             .loginBox {
                 width: 600px;
-                height: 900px;
-                margin: auto;
-                border: 3px solid black;
-                border-radius: 20px;
+                height: 600px;
+                margin: 30px auto 30px auto;
+                /*border: 3px solid black;*/
+                /*border-radius: 20px;*/
             }
 
             .idpw {
                 width: 300px;
-                margin: 100px auto 30px auto;
+                margin: 30px auto 0px auto;
             }
 
             .loginSign {
@@ -75,18 +76,30 @@
 
             .loginBtn {
                 display: inline-block;
-                margin-left: 120px;
+                /*margin-left: 120px;*/
             }
 
             .signUp {
                 display: inline-block;
             }
+
+            .loginpw-font {
+                font-family: 'Black Han Sans', sans-serif;
+            }
+
+            ::placeholder {
+                  font-family: 'BMDOHYEON', "sans-serif";
+            }
+
         </style>
 
 </head>
 <body>
-    <p class="title">Show Your Bucket</p>
+    <div class="header">
+        <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
+    </div>
     <div class="loginBox">
+        <img src="../static/img/loginimg.jpg" class="card-img-top">
         <div class="idpw">
             <div class="input-group mb-3 id">
                 <span class="input-group-text">아이디</span>
@@ -95,7 +108,7 @@
             </div>
             <div class="input-group mb-3 pw">
                 <span class="input-group-text">비밀번호</span>
-                <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요." aria-label="Username"
+                <input type="password" class="form-control loginpw-font" placeholder="비밀번호를 입력해주세요." aria-label="Username"
                        aria-describedby="basic-addon1" id="loginPw">
             </div>
         </div>

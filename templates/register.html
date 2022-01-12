@@ -17,19 +17,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
 
     <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">-->
 
     <title>Show Your Bucket</title>
 
     <title>회원가입</title>
     <style>
-        * {
-            font-family: 'Black Han Sans', sans-serif;
-        }
+        /** {*/
+        /*    font-family: 'Black Han Sans', sans-serif;*/
+        /*}*/
 
         h1 {
             text-align: center;
@@ -44,8 +45,18 @@
 
         .wrap {
             width: 540px;
-            margin: 0 auto;
+            margin: 30px auto;
         }
+
+        .regi-btn {
+            margin: auto;
+            display: block;
+        }
+
+        .regi-pw-font {
+            font-family: 'Black Han Sans', sans-serif;
+        }
+
     </style>
     <script>
         function go_register() {
@@ -135,10 +146,10 @@
     </script>
 </head>
 <body>
-<div class="wrap">
-    <h1>Show Your Buket</h1>
-    <h2>회원가입</h2>
-    <div>
+    <div class="header">
+        <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
+    </div>
+    <div class="wrap">
         <div class="input-group input-group-sm mb-3">
             <span class="input-group-text" id="inputGroup-sizing-sm">닉네입</span>
             <input id="nickname" type="text" class="form-control" aria-label="Sizing example input"
@@ -153,16 +164,15 @@
         </div>
         <div class="input-group input-group-sm mb-3">
             <span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
-            <input id="password" type="password" class="form-control" aria-label="Sizing example input"
+            <input id="password" type="password" class="form-control regi-pw-font" aria-label="Sizing example input"
                    aria-describedby="inputGroup-sizing-sm">
         </div>
         <div class="input-group input-group-sm mb-3">
             <span class="input-group-text" id="inputGroup-sizing-sm">비밀번호 재입력</span>
-            <input id="re_password" type="password" class="form-control" aria-label="Sizing example input"
+            <input id="re_password" type="password" class="form-control regi-pw-font" aria-label="Sizing example input"
                    aria-describedby="inputGroup-sizing-sm">
         </div>
-        <button class="btn btn-primary" type="button" onclick="go_register()">가입하기</button>
+        <button class="btn btn-primary regi-btn" type="button" onclick="go_register()">가입하기</button>
     </div>
-</div>
 </body>
 </html>

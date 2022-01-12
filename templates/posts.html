@@ -21,13 +21,15 @@
             crossorigin="anonymous"></script>
 
     <title>Show Your Bucket</title>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gaegu&family=Stylish&display=swap" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gaegu&family=Stylish&display=swap" rel="stylesheet">-->
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
+    <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
+
     <style>
-        * {
-            font-family: 'Black Han Sans', sans-serif;
-        }
+        /** {*/
+        /*    font-family: 'Black Han Sans', sans-serif;*/
+        /*}*/
 
         .title {
             font-size: 25px;
@@ -145,30 +147,32 @@
 </head>
 
 <body>
-<div class="title"> Show Your Bucket</div>
-
-<div class="wrapper">
-    <div class="image-show" id="image-show">
-    </div>
-    <div class="image-button">
-        <label for="file">
-            👉 사진 추가 👈
-        </label>
-    </div>
-    <input type="file" id="file" name="file" class="custom-file-input" onchange="loadFile(this)"/>
-
-    <div class="posting-title">
-        <label class="form-label"></label>
-        <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
-    </div>
-    <div class="posting-description">
-        <label class="form-label">내용을 입력하세요</label>
-        <textarea class="form-control" id="desc" rows="8"></textarea>
+    <div class="header">
+        <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
     </div>
 
-    <button class="posting-btn" onclick="posting()" type="button">작성하기</button>
+    <div class="wrapper">
+        <div class="image-show" id="image-show">
+        </div>
+        <div class="image-button">
+            <label for="file">
+                👉 사진 추가 👈
+            </label>
+        </div>
+        <input type="file" id="file" name="file" class="custom-file-input" onchange="loadFile(this)"/>
 
-</div>
+        <div class="posting-title">
+            <label class="form-label"></label>
+            <input type="email" class="form-control" id="title" placeholder="제목을 입력하세요">
+        </div>
+        <div class="posting-description">
+            <label class="form-label">내용을 입력하세요</label>
+            <textarea class="form-control" id="desc" rows="8"></textarea>
+        </div>
+
+        <button class="posting-btn" onclick="posting()" type="button">작성하기</button>
+
+    </div>
 
 </body>
 
