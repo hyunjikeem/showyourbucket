@@ -28,5 +28,40 @@
         </div>
     </div>
     </div>
+    <script type="text/javascript">
+        let logoutUser = false;
+        let timeoutHnd = null;
+        let logouTimeInterval = 300 * 1000; // here u can increase session time
+        function onuser_activite() {
+            if (logoutUser) {
+                ;
+            } else {
+                ResetLogOutTimer();
+            }
+        }
+
+        function OnTimeoutReached() {
+            logoutUser = true;
+            document.cookie = "mytoken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            alert("자동 로그아웃 되셨습니다!");
+            window.location.href = '/';
+        }
+
+        function ResetLogOutTimer() {
+            clearTimeout(timeoutHnd);
+            // set new timer
+            timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
+        }
+
+        if (document.cookie) {
+            onuser_activite();
+            // timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
+        } else {
+            ;
+        }
+        // document.body.onclick = onuser_activite;
+        // timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
+
+    </script>
 {% endblock %}
 
