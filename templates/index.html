@@ -18,7 +18,7 @@
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
 
     <!-- 구글폰트 -->
@@ -101,32 +101,6 @@
             }
         }
 
-        let logoutUser = false;
-        let timeoutHnd = null;
-        let logouTimeInterval = 10 * 1000; // 15 mins here u can increase session time
-        function onuser_activite() {
-            if (logoutUser) {
-                ;
-            } else {
-                ResetLogOutTimer();
-            }
-        }
-
-        function OnTimeoutReached() {
-            logoutUser = true;
-            document.cookie = "mytoken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-            alert("자동 로그아웃 되셨습니다!");
-            window.location.href = '/';
-        }
-
-        function ResetLogOutTimer() {
-            clearTimeout(timeoutHnd);
-            // set new timer
-            timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
-        }
-
-        document.body.onclick = onuser_activite;
-        timeoutHnd = setTimeout('OnTimeoutReached();', logouTimeInterval);
     </script>
 </head>
 
