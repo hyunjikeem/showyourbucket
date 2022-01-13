@@ -20,44 +20,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
-
-    <!-- 구글폰트 -->
-<!--    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">-->
-
     <title>Show Your Bucket</title>
 
     <title>회원가입</title>
-    <style>
-        /** {*/
-        /*    font-family: 'Black Han Sans', sans-serif;*/
-        /*}*/
-
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-
-        }
-
-        h2 {
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .wrap {
-            width: 540px;
-            margin: 30px auto;
-        }
-
-        .regi-btn {
-            margin: auto;
-            display: block;
-        }
-
-        .regi-pw-font {
-            font-family: 'Black Han Sans', sans-serif;
-        }
-
-    </style>
     <script>
         function go_register() {
             //replace(/ /gi,'') 공백제거
@@ -65,7 +30,6 @@
             let user_id = $('#id').val().replace(/ /gi, '')
             let password = $('#password').val().replace(/ /gi, '')
             let re_password = $('#re_password').val().replace(/ /gi, '')
-
 
             if (nickname === '') {
                 alert('닉네임을 입력해주세요:)');
@@ -149,7 +113,7 @@
     <div class="header">
         <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
     </div>
-    <div class="wrap">
+    <div class="regi-form-wrap">
         <div class="input-group input-group-sm mb-3">
             <span class="input-group-text" id="inputGroup-sizing-sm">닉네입</span>
             <input id="nickname" type="text" class="form-control" aria-label="Sizing example input"
