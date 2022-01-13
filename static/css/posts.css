@@ -1,0 +1,52 @@
+.wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.image-show {
+    width: 450px;
+    height: 450px;
+    background-image: url("../static/preview.png");
+    background-repeat: no-repeat;
+    margin: 35px 10px 10px 0px;
+}
+
+.wrapper .posting-btn {
+    margin-top: -108px;
+    margin-right: 170px;
+    float: right;
+    height: 40px;
+    width: 100px;
+    font-size: 20px;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+}
+
+.image-button {
+    font-size: 25px;
+    text-align: left;
+    margin: 0px 0px 0px 140px;
+}
+
+.posting-title {
+    width: 500px;
+    float: right;
+    margin-top: -518px;
+}
+
+.posting-description {
+    width: 498px;
+    margin-top: -408px;
+    float: right;
+}
+
+textarea {
+    width: 300px;
+    height: 200px;
+    resize: none;
+}
+
+.form-label {
+    font-size: 17px;
+}
