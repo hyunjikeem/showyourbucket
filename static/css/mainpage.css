@@ -31,6 +31,16 @@
 
 }
 
+.card-columns .card {
+  height: 300px;
+  width: 200px;
+  overflow: hidden;
+}
+
+.buckets {
+  margin: 50px;
+}
+
 .login-btn {
   width: 80px;
   display: block;
@@ -49,27 +59,22 @@
   cursor: pointer;
 }
 
-.posts-column{
-  margin: 50px 50px 50px 50px;
-  border-radius: 10px;
-  border: 2px solid black;
-}
-
-.bucket-desc {
+.bucket-modal {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
+  position: fixed;
   top: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   display: none;
+  z-index: 1;
 }
 
-.bucket-desc-content {
+.bucket-modal-contents {
   width: 700px;
-  height: 600px;
+  max-height: 80%;
+  overflow: auto;
   background-color: white;
   border-radius: 4px;
   position: fixed;
