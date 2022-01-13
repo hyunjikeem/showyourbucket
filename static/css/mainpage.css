@@ -85,6 +85,21 @@
     overflow: hidden;
 }
 
+.card-columns .card img{
+    cursor: default;
+}
+
+.card-columns .card:hover::before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    cursor:pointer;
+    z-index:1;
+}
+
 .bucket-modal {
     width: 100%;
     height: 100%;
@@ -116,6 +131,7 @@
     font-size: 20px;
     cursor: pointer;
 }
+
 
 /* 회원가입 style*/
 
