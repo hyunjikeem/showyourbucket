@@ -40,6 +40,21 @@
 * * *
 ## 📷Screenshot
 
+### Main Page
+<img src="https://user-images.githubusercontent.com/91252981/149301569-a0fc96e7-7f5c-4fd8-8abc-d12e5a14ddde.png">
+
+### Login Page
+<img src="https://user-images.githubusercontent.com/91252981/149301879-420e17b5-9f0d-4067-addc-6c36487357e1.png">
+
+### Register Page
+<img src="https://user-images.githubusercontent.com/91252981/149301877-1df95947-c935-4a59-853d-b20a9e723197.png">
+
+### Posting Page
+<img src="https://user-images.githubusercontent.com/91252981/149302790-d9cf2664-e05d-49e0-b1cc-8067d832c26f.png">
+
+### Pop-up
+<img src="https://user-images.githubusercontent.com/91252981/149302800-5f4abef2-e687-4572-a3fc-1d00cc28f7e3.png">
+
 * * *
 ## 📌 Trouble Shooting
 
