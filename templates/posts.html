@@ -1,8 +1,15 @@
+{#index.html과 연결하기#}
+{% extends 'index.html' %}
+
+{#index.html head와 연결하기#}
+{% block haed %}
     <script defer src="{{ url_for('static', filename='js/posts.js') }}"></script>
 {#    <script defer src="{{ url_for('static', filename='css/main.css') }}"></script>#}
-
     <link href="{{ url_for('static', filename='css/mainpage.css') }}" rel="stylesheet">
+{% endblock %}
 
+{#endblock을 만나기 전 까지 index.html에 content 삽입하기#}
+{% block content %}
 <div class="header">
     <img onclick="window.location.href='/'" class="logo" src="../static/img/logo.png">
 </div>
@@ -30,6 +37,4 @@
 
 </div>
 
-</body>
-
-</html>
+{% endblock %}
