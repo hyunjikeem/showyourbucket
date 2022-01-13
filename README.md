@@ -52,8 +52,8 @@
 ### Posting Page
 <img src="https://user-images.githubusercontent.com/91252981/149302790-d9cf2664-e05d-49e0-b1cc-8067d832c26f.png">
 
-### Pop-up
-<img src="https://user-images.githubusercontent.com/91252981/149302800-5f4abef2-e687-4572-a3fc-1d00cc28f7e3.png">
+### Modal
+<img src="https://user-images.githubusercontent.com/91252981/149306564-15a6d2cc-aa8e-4fa7-86b5-b3ed0ee30bbc.png">
 
 * * *
 ## 📌 Trouble Shooting
