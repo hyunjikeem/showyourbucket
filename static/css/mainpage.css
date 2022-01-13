@@ -31,6 +31,16 @@
 
 }
 
+.card-columns .card {
+  height: 300px;
+  width: 200px;
+  overflow: hidden;
+}
+
+.buckets {
+  margin: 50px;
+}
+
 .login-btn {
   width: 80px;
   display: block;
@@ -49,10 +59,6 @@
   cursor: pointer;
 }
 
-.buckets{
-  margin: 50px;
-}
-
 .bucket-modal {
   width: 100%;
   height: 100%;
@@ -65,9 +71,10 @@
   z-index: 1;
 }
 
-.bucket-modal-content {
+.bucket-modal-contents {
   width: 700px;
-  height: 600px;
+  max-height: 80%;
+  overflow: auto;
   background-color: white;
   border-radius: 4px;
   position: fixed;
