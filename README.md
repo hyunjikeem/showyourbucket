@@ -8,7 +8,7 @@
 > 새로운 한 해 동안 자신이 하고 싶은 Bucket List를 기록하고 공유하는 플랫폼 입니다.
 
 #### 프로젝트 시연 영상
-> 주소추가!
+> https://youtu.be/OnRbutbGHSY
 
 #### 제작 기간 & 팀원 소개
 >제작 기간: 2022.01.10 ~ 2022.01.13  
@@ -57,6 +57,31 @@
 
 * * *
 ## 📌 Trouble Shooting
+
+<details>
+    <summary>1. preview를 띄어주는 이미지 업로드 기능 구현 시, 이미지가 변경이 되지 않고 preview 하단에 이미지가 쌓이는 문제</summary></br>
+     
+     개발자 도구에서 확인 해보니 container.appendChile(newImage)로 인해 image-show div 에 추가로 이미지가 계속 쌓이고 있는 점을 발견했다
+     container.removeChild(container.children[0]) 조건으로 첨부 파일이 있을 때는 기존 이미지를 삭제 해준 후 
+     새로운 이미지를 추가 하는 것으로 해결 
+<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
+
+</details>
+</br>
+<details>
+  <summary>2.ajax GET 요청으로 받은 data를 modal popup으로 다시 띄어줄 때 고유 id값을 불러오지 못하는 문제</summary></br>
+  
+    api 쪽에서 _id 값을 string 형태로 받아온 후, 다시 client 쪽에서 modal popup function으로 넘겨 준 뒤
+    modal popup function 에서 _id 값을 api 쪽에 넘겨서 해당 데이터 불러오는 것으로 해결
+    
+</details>
+</br>
+<details>
+  <summary>3.토큰이 만료되면 자동 로그아웃 되는 기능 구현 시, 토큰값이 만료는 되지만 계속 남아있어서 자동 로그아웃 기능 구현 실패</summary></br>
+  
+    토큰이 만료되는 시간에 맞추어 토큰값을 삭제하는 방법으로 토큰값이 없을 경우 자동 로그아웃 시키고 메인페이지로 이동하게끔 해결
+    
+</details>
 
 ### URL
 > https://showyourbucket.shop
