@@ -30,3 +30,9 @@
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> <img src="https://img.shields.io/badge/kakaotalk-FFCD00?style=for-the-badge&logo=kakaotalk&logoColor=white">
 </div>
 
+* * *
+## 🖥 API 설계
+<img width="1347" alt="api" src="https://user-images.githubusercontent.com/91252981/149280209-21fc5ebe-7191-41fd-8eaf-24a8acb93991.png">
+
+* * *
+## 📌 Trouble Shooting
