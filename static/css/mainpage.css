@@ -9,10 +9,33 @@
     font-family: 'BMDOHYEON', "sans-serif";
 }
 
+body {
+    min-height: 100%;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
+.footer {
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding-top: 15px;
+    text-align: center;
+    color: black;
+    background: azure;
+}
+
 .header {
     text-align: center;
     padding: 30px;
     border-bottom: 1px solid black;
+    background-color: azure;
 }
 
 .logo {
@@ -40,7 +63,7 @@
     display: block;
     position: absolute;
     right: 140px;
-    background-color: aqua;
+    background-color: floralwhite;
     cursor: pointer;
 }
 
@@ -49,7 +72,7 @@
     display: block;
     position: absolute;
     right: 50px;
-    background-color: aqua;
+    background-color: floralwhite;
     cursor: pointer;
 }
 
@@ -85,19 +108,19 @@
     overflow: hidden;
 }
 
-.card-columns .card img{
+.card-columns .card img {
     cursor: default;
 }
 
 .card-columns .card:hover::before {
-    content:'';
+    content: '';
     position: absolute;
     top: 0;
-    left:0;
+    left: 0;
     width: 100%;
     height: 100%;
-    cursor:pointer;
-    z-index:1;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .bucket-modal {
@@ -130,21 +153,4 @@
     right: 10px;
     font-size: 20px;
     cursor: pointer;
-}
-
-
-/* 회원가입 style*/
-
-.regi-form-wrap {
-    width: 540px;
-    margin: 30px auto;
-}
-
-.regi-btn {
-    margin: auto;
-    display: block;
-}
-
-.regi-pw-font {
-    font-family: 'Black Han Sans', sans-serif;
 }
